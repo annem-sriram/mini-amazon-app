@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: product-service
-        image: yourusername/mini-amazon-product:v1.0.0 # Replace with your Docker Hub username
+        image: yourusername/mini-amazon-product:v1 # Replace with your Docker Hub username
         ports:
         - containerPort: 5001
 ---
