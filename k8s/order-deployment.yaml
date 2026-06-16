@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  labels:
+    app: order
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: order
+  template:
+    metadata:
+      labels:
+        app: order
+    spec:
+      containers:
+      - name: order-service
+        image: yourusername/mini-amazon-order:v1 # Replace with your Docker Hub username
+        ports:
+        - containerPort: 5002
+        env:
+        - name: PRODUCT_SERVICE_URL
+          value: "http://product-service:5001" # Points to the Service defined above
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+spec:
+  type: ClusterIP
+  selector:
+    app: order
+  ports:
+  - protocol: TCP
+    port: 5002
+    targetPort: 5002
